@@ -1,26 +1,22 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Node } from "./node";
 import { Edge } from "./edge";
 import { useFlowStore } from "@/store/useFlowStore";
 
 export const HandleFlow: React.FC = () => {
-  const { nodes, edges, updateNodePosition } = useFlowStore((state) => ({
-    nodes: state.nodes,
-    edges: state.edges,
-    updateNodePosition: state.updateNodePosition,
-  }));
+  // Read-only subscription
+  const nodes = useFlowStore((state) => state.nodes);
+  const edges = useFlowStore((state) => state.edges);
 
-  useEffect(() => {
-    console.log("🧠 Mounted HandleFlow");
-  }, []);
-
-  useEffect(() => {
-    console.log("📦 Zustand nodes:", nodes);
-    console.log("📦 Zustand edges:", edges);
-  }, [nodes, edges]);
+  // Write function (won't trigger rerenders)
+  const updateNodePosition = useFlowStore((state) => state.updateNodePosition);
 
   return (
     <div className="relative w-full h-full bg-slate-100 overflow-hidden">
+      <div className="absolute top-4 left-4 bg-red-500 text-white px-2 py-1 rounded">
+        Render test
+      </div>
+
       {/* Edges */}
       <svg className="absolute inset-0 w-full h-full pointer-events-none">
         {edges.map((edge) => {

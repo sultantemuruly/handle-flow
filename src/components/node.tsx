@@ -31,7 +31,7 @@ export const Node: React.FC<NodeProps> = ({
     <div
       onMouseDown={handleMouseDown}
       className={cn(
-        "absolute select-none w-48 cursor-move active:cursor-grabbing transition-all",
+        "absolute top-0 left-0 select-none w-48 cursor-move active:cursor-grabbing transition-all",
         "bg-white rounded-2xl shadow-md border px-4 py-3",
         selected
           ? "border-blue-500 shadow-blue-200"

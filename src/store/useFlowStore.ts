@@ -24,11 +24,7 @@ interface FlowState {
 }
 
 export const useFlowStore = create<FlowState>((set) => ({
-  nodes: [
-    { id: "1", x: 200, y: 120, label: "Start" },
-    { id: "2", x: 350, y: 250, label: "Process" },
-    { id: "3", x: 600, y: 380, label: "End" },
-  ],
+  nodes: [],
   edges: [],
   setInitialData: (nodes, edges) => set({ nodes, edges }),
   addNode: (node) =>
