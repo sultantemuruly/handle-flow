@@ -9,6 +9,7 @@ interface NodeProps {
   description?: string;
   selected?: boolean;
   onDrag?: (x: number, y: number) => void;
+  onClick?: () => void;
 }
 
 export const Node: React.FC<NodeProps> = ({
@@ -18,6 +19,7 @@ export const Node: React.FC<NodeProps> = ({
   description: initialDescription = "",
   selected,
   onDrag,
+  onClick,
 }) => {
   const [label, setLabel] = useState(initialLabel);
   const [description, setDescription] = useState(initialDescription);
@@ -30,6 +32,7 @@ export const Node: React.FC<NodeProps> = ({
   return (
     <div
       onMouseDown={handleMouseDown}
+      onClick={onClick}
       className={cn(
         "absolute top-0 left-0 select-none w-48 cursor-move active:cursor-grabbing transition-all",
         "bg-white rounded-2xl shadow-md border px-4 py-3",

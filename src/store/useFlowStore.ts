@@ -21,18 +21,35 @@ interface FlowState {
   setInitialData: (nodes: NodeData[], edges: EdgeData[]) => void;
   updateNodePosition: (id: string, x: number, y: number) => void;
   addNode: (node: NodeData) => void;
+  addEdge: (sourceId: string, targetId: string) => void; // just the type here
 }
 
 export const useFlowStore = create<FlowState>((set) => ({
   nodes: [],
   edges: [],
+
   setInitialData: (nodes, edges) => set({ nodes, edges }),
+
   addNode: (node) =>
     set((state) => ({
       nodes: [...state.nodes, node],
     })),
+
   updateNodePosition: (id, x, y) =>
     set((state) => ({
       nodes: state.nodes.map((n) => (n.id === id ? { ...n, x, y } : n)),
+    })),
+
+  addEdge: (sourceId, targetId) =>
+    set((state) => ({
+      edges: [
+        ...state.edges,
+        {
+          id: `e${sourceId}-${targetId}`,
+          source: sourceId,
+          target: targetId,
+          selected: false,
+        },
+      ],
     })),
 }));
