@@ -31,7 +31,6 @@ function App() {
   return (
     <div className="w-full h-screen">
       <HandleFlow />
-      <div>something</div>
     </div>
   );
 }

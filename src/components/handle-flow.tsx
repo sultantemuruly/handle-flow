@@ -1,7 +1,10 @@
 import React from "react";
+import { useFlowStore } from "@/store/useFlowStore";
+
 import { Node } from "./node";
 import { Edge } from "./edge";
-import { useFlowStore } from "@/store/useFlowStore";
+
+import { BackgroundGrid } from "./background-grid";
 
 export const HandleFlow: React.FC = () => {
   // Read-only subscription
@@ -13,9 +16,14 @@ export const HandleFlow: React.FC = () => {
 
   return (
     <div className="relative w-full h-full bg-slate-100 overflow-hidden">
-      <div className="absolute top-4 left-4 bg-red-500 text-white px-2 py-1 rounded">
-        Render test
-      </div>
+      <BackgroundGrid
+        width={2000}
+        height={2000}
+        gridSize={20}
+        dotSize={1}
+        symbol="."
+        opacity={0.7}
+      />
 
       {/* Edges */}
       <svg className="absolute inset-0 w-full h-full pointer-events-none">
