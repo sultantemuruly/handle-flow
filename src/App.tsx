@@ -1,7 +1,9 @@
+import { Node } from "./components/node";
+
 function App() {
   return (
     <>
-      <div className="text-2xl font-black text-blue-700">Hello!</div>
+      <Node x={200} y={300} label="something" selected={true} />
     </>
   );
 }
