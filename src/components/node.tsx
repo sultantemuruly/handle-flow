@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { cn } from "@/lib/utils";
+import { useDragNode } from "@/hooks/useDragNode";
 
 interface NodeProps {
   x: number;
@@ -7,6 +8,7 @@ interface NodeProps {
   label: string;
   description?: string;
   selected?: boolean;
+  onDrag?: (x: number, y: number) => void;
 }
 
 export const Node: React.FC<NodeProps> = ({
@@ -15,21 +17,29 @@ export const Node: React.FC<NodeProps> = ({
   label: initialLabel,
   description: initialDescription = "",
   selected,
+  onDrag,
 }) => {
   const [label, setLabel] = useState(initialLabel);
   const [description, setDescription] = useState(initialDescription);
+  const { position, handleMouseDown, isDragging } = useDragNode({
+    x,
+    y,
+    onDrag,
+  });
 
   return (
     <div
+      onMouseDown={handleMouseDown}
       className={cn(
-        "absolute select-none w-48",
+        "absolute select-none w-48 cursor-move active:cursor-grabbing transition-all",
         "bg-white rounded-2xl shadow-md border px-4 py-3",
         selected
           ? "border-blue-500 shadow-blue-200"
-          : "border-gray-200 shadow-gray-100"
+          : "border-gray-200 shadow-gray-100",
+        isDragging && "opacity-80"
       )}
       style={{
-        transform: `translate(${x}px, ${y}px)`,
+        transform: `translate(${position.x}px, ${position.y}px)`,
       }}
     >
       {/* Label input */}
