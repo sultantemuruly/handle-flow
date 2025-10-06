@@ -39,7 +39,7 @@ export const Node: React.FC<NodeProps> = ({
         selected
           ? "border-blue-500 shadow-blue-200"
           : "border-gray-200 shadow-gray-100",
-        isDragging && "opacity-80"
+        isDragging && "shadow-lg"
       )}
       style={{
         transform: `translate(${position.x}px, ${position.y}px)`,
