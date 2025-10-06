@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { cn } from "@/lib/utils";
 import { useDragNode } from "@/hooks/useDragNode";
+import { NodeActions } from "./node-actions";
 
 interface NodeProps {
+  id: string;
   x: number;
   y: number;
   label: string;
@@ -13,6 +15,7 @@ interface NodeProps {
 }
 
 export const Node: React.FC<NodeProps> = ({
+  id,
   x,
   y,
   label: initialLabel,
@@ -34,7 +37,7 @@ export const Node: React.FC<NodeProps> = ({
       onMouseDown={handleMouseDown}
       onClick={onClick}
       className={cn(
-        "absolute top-0 left-0 select-none w-48 cursor-move active:cursor-grabbing transition-all",
+        "absolute top-0 left-0 select-none w-48 cursor-move active:cursor-grabbing transition-all group",
         "bg-white rounded-2xl shadow-md border px-4 py-3",
         selected
           ? "border-blue-500 shadow-blue-200"
@@ -43,8 +46,11 @@ export const Node: React.FC<NodeProps> = ({
       )}
       style={{
         transform: `translate(${position.x}px, ${position.y}px)`,
+        transition: isDragging ? "none" : "transform 0.1s ease-out",
       }}
     >
+      <NodeActions nodeId={id} />
+
       {/* Label input */}
       <input
         value={label}

@@ -16,6 +16,7 @@ export const useDragNode = ({ x, y, onDrag }: UseDragNodeProps) => {
     (e: React.MouseEvent) => {
       e.stopPropagation();
       setIsDragging(true);
+
       setOffset({
         x: e.clientX - position.x,
         y: e.clientY - position.y,
@@ -27,8 +28,9 @@ export const useDragNode = ({ x, y, onDrag }: UseDragNodeProps) => {
   const handleMouseMove = useCallback(
     (e: MouseEvent) => {
       if (!isDragging) return;
-      const newX = snapToGrid(e.clientX - offset.x);
-      const newY = snapToGrid(e.clientY - offset.y);
+      const newX = e.clientX - offset.x;
+      const newY = e.clientY - offset.y;
+
       setPosition({ x: newX, y: newY });
       onDrag?.(newX, newY);
     },
@@ -36,10 +38,17 @@ export const useDragNode = ({ x, y, onDrag }: UseDragNodeProps) => {
   );
 
   const handleMouseUp = useCallback(() => {
+    if (!isDragging) return;
     setIsDragging(false);
-  }, []);
 
-  // Attach listeners to window for smooth drag
+    setPosition((prev) => {
+      const snappedX = snapToGrid(prev.x);
+      const snappedY = snapToGrid(prev.y);
+      onDrag?.(snappedX, snappedY);
+      return { x: snappedX, y: snappedY };
+    });
+  }, [isDragging, onDrag]);
+
   useEffect(() => {
     if (isDragging) {
       window.addEventListener("mousemove", handleMouseMove);
