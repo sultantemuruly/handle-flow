@@ -7,7 +7,7 @@ const nodeTypes = [
   { type: "end", label: "End" },
 ];
 
-export const NodePalette: React.FC = () => {
+export const Palette: React.FC = () => {
   return (
     <div className="absolute top-0 right-0 w-48 h-full bg-white border-l border-gray-200 shadow-md p-3">
       <h3 className="font-semibold text-gray-700 mb-2 text-center">Palette</h3>

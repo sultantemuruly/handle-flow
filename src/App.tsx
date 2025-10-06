@@ -4,7 +4,7 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 
 import { useFlowStore } from "./store/useFlowStore";
 import { HandleFlow } from "./components/handle-flow";
-import { NodePalette } from "./components/node-palette";
+import { Palette } from "./components/palette";
 
 function App() {
   const nodes = useFlowStore((state) => state.nodes);
@@ -39,7 +39,7 @@ function App() {
         <div className="flex-1">
           <HandleFlow />
         </div>
-        <NodePalette />
+        <Palette />
       </div>
     </DndProvider>
   );
